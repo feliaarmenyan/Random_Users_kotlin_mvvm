@@ -6,5 +6,9 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single<RandomUsersRepository> { RandomUsersRepositoryImpl(randomUsersApi = get()) }
+    single<RandomUsersRepository> {
+        RandomUsersRepositoryImpl(
+            randomUsersApi = get()
+        )
+    }
 }

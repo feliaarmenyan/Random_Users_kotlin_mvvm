@@ -10,7 +10,7 @@ data class User(
     val gender: String? = null,
     val name: Name? = null,
     val location: Location? = null,
-    val email: String? = null,
+    val email: String,
     val login: Login? = null,
     val dob: Dob? = null,
     val registered: Registered? = null,
