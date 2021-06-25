@@ -8,5 +8,5 @@ import com.randomusers_kotlin_mvvm.data.local.db.entity.UserEntity
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(users: List<UserEntity>)
+    suspend fun insertAll(user: UserEntity)
 }

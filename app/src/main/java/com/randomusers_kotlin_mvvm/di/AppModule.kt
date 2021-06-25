@@ -8,7 +8,8 @@ val appModule = module {
 
     single<RandomUsersRepository> {
         RandomUsersRepositoryImpl(
-            randomUsersApi = get()
+            randomUsersApi = get(),
+            dao = get()
         )
     }
 }

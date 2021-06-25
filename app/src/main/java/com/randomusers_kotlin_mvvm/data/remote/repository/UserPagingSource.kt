@@ -2,11 +2,14 @@ package com.randomusers_kotlin_mvvm.data.remote.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.randomusers_kotlin_mvvm.data.local.db.dao.UserDao
 import com.randomusers_kotlin_mvvm.data.remote.api.RandomUsersApiService
 import com.randomusers_kotlin_mvvm.data.remote.model.User
+import com.randomusers_kotlin_mvvm.data.remote.util.UserMemberHelper
 
 class UserPagingSource(
     private val usersApi: RandomUsersApiService,
+    private val dao: UserDao
 ) :
     PagingSource<Int, User>() {
 
@@ -18,6 +21,8 @@ class UserPagingSource(
                     page = startFrom,
                     results = 20
                 ).results
+
+            UserMemberHelper.insertUserList(dao, response)
 
             LoadResult.Page(
                 data = response,
