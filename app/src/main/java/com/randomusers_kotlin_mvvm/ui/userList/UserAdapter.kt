@@ -15,7 +15,8 @@ import com.randomusers_kotlin_mvvm.databinding.ItemUserBinding
 class UserAdapter :
     PagingDataAdapter<User, UserAdapter.UserViewHolder>(COMPARATOR) {
 
-    var onUserItemClick: ((User, Int) -> Unit)? = null
+    var onUserItemClick: ((User) -> Unit)? = null
+    var onUserPhoneItemClick: ((User) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -35,12 +36,17 @@ class UserAdapter :
         @SuppressLint("SetTextI18n")
         fun bindTo(user: User?) {
             with(binding) {
-                userTitle.text = user?.name?.first + " "+ user?.name?.last
+                userTitle.text = user?.name?.first + " " + user?.name?.last
 
                 userIcon.loadImage(user?.picture?.large)
                 userItem.setOnClickListener {
                     user?.let {
-                        onUserItemClick?.invoke(it, bindingAdapterPosition)
+                        onUserItemClick?.invoke(it)
+                    }
+                }
+                userPhone.setOnClickListener {
+                    user?.let {
+                        onUserPhoneItemClick?.invoke(it)
                     }
                 }
             }

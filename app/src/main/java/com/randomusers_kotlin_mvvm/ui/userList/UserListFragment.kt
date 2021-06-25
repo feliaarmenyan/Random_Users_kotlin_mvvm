@@ -1,5 +1,7 @@
 package com.randomusers_kotlin_mvvm.ui.userList
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,7 +12,6 @@ import com.randomusers_kotlin_mvvm.R
 import com.randomusers_kotlin_mvvm.core.platform.viewbindingdelegate.viewBinding
 import com.randomusers_kotlin_mvvm.core.utils.gone
 import com.randomusers_kotlin_mvvm.core.utils.visible
-import com.randomusers_kotlin_mvvm.databinding.UserDetailsFragmentBinding.bind
 import com.randomusers_kotlin_mvvm.databinding.UserListFragmentBinding
 import com.randomusers_kotlin_mvvm.ui.RandomUsersViewModel
 import com.randomusers_kotlin_mvvm.ui.userdetails.UserDetailsFragmentArgs
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 class UserListFragment : Fragment(R.layout.user_list_fragment) {
 
@@ -32,12 +34,22 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
         with(mBinding) {
             recyclerView.adapter = mAdapter
 
-            mAdapter.onUserItemClick = { user, pos ->
+            mAdapter.onUserItemClick = { user ->
                 val args = UserDetailsFragmentArgs(user)
                 findNavController().navigate(
                     R.id.action_UserListFragment_to_UserDetailsFragment,
-                  args.toBundle()
+                    args.toBundle()
                 )
+            }
+
+            mAdapter.onUserPhoneItemClick = { user ->
+                try {
+                    val u = Uri.parse("tel:" + user.phone)
+                    val i = Intent(Intent.ACTION_DIAL, u)
+                    startActivity(i)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
 
             lifecycleScope.launch {
