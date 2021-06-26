@@ -30,16 +30,6 @@ fun View.gone(animate: Boolean = true) {
     hide(View.GONE, animate)
 }
 
-/** Convenient method that chooses between View.visible() or View.invisible() methods */
-fun View.visibleOrInvisible(show: Boolean, animate: Boolean = true) {
-    if (show) visible(animate) else invisible(animate)
-}
-
-/** Convenient method that chooses between View.visible() or View.gone() methods */
-fun View.visibleOrGone(show: Boolean, animate: Boolean = true) {
-    if (show) visible(animate) else gone(animate)
-}
-
 private fun View.hide(hidingStrategy: Int, animate: Boolean = true) {
     if (animate) {
         animate().alpha(0f).setDuration(300).setListener(object : AnimatorListenerAdapter() {
@@ -58,27 +48,4 @@ fun ImageView.loadImage(imageUrl: String?) {
     Glide.with(context)
         .load(imageUrl)
         .into(this)
-}
-
-//new extensions
-/**
- * Show the view if [predicate] returns true
- * (visibility = View.VISIBLE)
- */
-inline fun View.showIf(predicate: () -> Boolean) : View {
-    if (visibility != View.VISIBLE && predicate()) {
-        visibility = View.VISIBLE
-    }
-    return this
-}
-
-/**
- * Remove the view if [predicate] returns true
- * (visibility = View.GONE)
- */
-inline fun View.hideIf(predicate: () -> Boolean) : View {
-    if (visibility != View.GONE && predicate()) {
-        visibility = View.GONE
-    }
-    return this
 }

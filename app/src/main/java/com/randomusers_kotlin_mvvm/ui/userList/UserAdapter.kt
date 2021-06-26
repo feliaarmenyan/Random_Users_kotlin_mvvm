@@ -37,6 +37,7 @@ class UserAdapter :
         fun bindTo(user: User?) {
             with(binding) {
                 userTitle.text = user?.name?.first + " " + user?.name?.last
+                userPhone.text = user?.phone
 
                 userIcon.loadImage(user?.picture?.large)
                 userItem.setOnClickListener {

@@ -10,6 +10,4 @@ class RandomUsersViewModel(private val repository: RandomUsersRepository) : Base
     val users =
         repository.getRandomUsersPaging()
             .cachedIn(viewModelScope)
-
-
 }

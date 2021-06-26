@@ -44,10 +44,3 @@ fun Context.hasNetworkConnection(): Boolean {
     }
     return false;
 }
-
-fun <T> Fragment.getNavigationResult(key: String) =
-    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
-
-fun <T> Fragment.setNavigationResult(key: String, result: T) {
-    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
-}
