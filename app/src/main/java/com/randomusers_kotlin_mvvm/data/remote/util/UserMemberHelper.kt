@@ -15,7 +15,8 @@ object UserMemberHelper {
                 UserEntity(
                     user.email,
                     user.name?.first + user.name?.last,
-                    user.picture?.large
+                    user.picture?.large,
+                    user.phone
                 )
             )
         }
